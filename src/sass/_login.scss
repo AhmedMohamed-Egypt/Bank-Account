@@ -1,0 +1,37 @@
+label{
+    display: block;
+}
+.loginFlex{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    input{
+        padding: 10px 105px;
+        border-radius: 5px;
+        border: 1px solid #000;
+        padding-left: 16px;
+        margin-top: 15px;
+        &:focus{
+            outline: 0;
+        }
+    }
+    button{
+        border: none;
+        background: none;
+        background-color: #3181d3;
+        padding: 10px 50px;
+        color: #fff;
+        font-size: 20px;
+        border-radius: 10px;
+        margin-top: 30px;
+        display: block;
+        cursor: pointer;
+        &:hover{
+            background-color: #177ce4;
+        }
+    }
+}
+.error{
+    color: rgb(236, 67, 67);
+    margin: 0;
+}
