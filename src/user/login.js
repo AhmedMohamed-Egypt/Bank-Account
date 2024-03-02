@@ -12,7 +12,7 @@ const Login = () => {
        dispatch(handleLogin(user))
        setUser("")
      }
-  return <div className="loginContainer">
+  return <div className="">
     <h2>Welcome to Design Community </h2>
   <div className="loginFlex">
   <div>

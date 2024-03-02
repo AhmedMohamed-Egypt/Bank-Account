@@ -9,7 +9,7 @@ export default function loginReducer(state=initailLogin,action){
 
     case "submit/login":{
         if(action.payload===''){
-          return {...state,userName:action.payload,error:"there is an error"}
+          return {...state,userName:action.payload,error:"There is an error"}
         }
         return {...state,userName:action.payload,error:""}
        
