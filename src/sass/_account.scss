@@ -1,0 +1,61 @@
+.account {
+  background-color: #232024;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 5px;
+  padding-bottom: 50px;
+  .balance {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  label {
+    display: block;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+  }
+  input {
+    padding: 10px 15px;
+    background: none;
+    border: none;
+    border: 1px solid #fff;
+    color: #fff;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    width: 200px;
+    &:focus {
+      outline: 0;
+    }
+    &::placeholder {
+      color: #fff;
+      letter-spacing: 1px;
+    }
+  }
+  button {
+    background: none;
+    border: none;
+    padding: 10px 30px;
+    color: #fff;
+    border-radius: 8px;
+    background-color: #307575;
+    margin-top: 30px;
+    margin-left: 20px;
+    transition: .25s;
+    cursor: pointer;
+    width: 150px;
+    letter-spacing: 1px;
+    &:hover{
+        background-color: #277c7c;
+    }
+  }
+  .widthdraw{
+    margin-top: 50px;
+    button{
+        background-color: #c32b2b;
+        &:hover{
+            background-color: #e43e3e;
+        }
+    }
+  }
+}
