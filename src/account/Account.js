@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleDeposit, handleWidthdraw } from "./accounSlice";
+import { handleDeposit, handleWidthdraw, removeError } from "./accounSlice";
 import ErrorBank from "../errors/ErrorBank";
 
 
@@ -19,6 +19,14 @@ const Account=()=>{
     dispatch(handleWidthdraw(withdraw))
     setWithdraw('')
   }
+  useEffect(()=>{
+
+   setTimeout(() => {
+    if(error.length > 0){
+       dispatch(removeError())
+    }
+   }, 2000);
+  })
 
 
     return (
