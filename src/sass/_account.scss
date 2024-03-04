@@ -58,4 +58,13 @@
         }
     }
   }
+  .getloan{
+    button{
+      background-color: #693f87;
+      &:hover{
+        background-color: #995cc5;
+      }
+    }
+  }
+
 }

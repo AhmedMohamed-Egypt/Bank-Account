@@ -54,7 +54,7 @@ const Account=()=>{
                </div>
                <button onClick={withdrawBalance}>Withdraw</button>
             </div>
-            <div className="d-flex align-items-center widthdraw">
+            <div className="d-flex align-items-center widthdraw getloan">
                <div>
                <label>Get Loan</label>
                 <input type="text" placeholder="Get a Loan from bank" value={loan} onChange={(e)=>{setLoan(+e.target.value)}}/>
