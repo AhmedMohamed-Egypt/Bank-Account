@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleDeposit, handleWidthdraw, removeError } from "./accounSlice";
+import { getLoan, handleDeposit, handleWidthdraw, removeError } from "./accounSlice";
 import ErrorBank from "../errors/ErrorBank";
 
 
@@ -9,6 +9,7 @@ import ErrorBank from "../errors/ErrorBank";
 const Account=()=>{
     const [deposit,setDeposit] = useState("")
     const [withdraw,setWithdraw] = useState("")
+    const [loan,setLoan] = useState("")
     const {balance,error} = useSelector((store)=>store.account)
    const dispatch = useDispatch()
   const depositBalance = ()=>{
@@ -19,13 +20,17 @@ const Account=()=>{
     dispatch(handleWidthdraw(withdraw))
     setWithdraw('')
   }
+  const handleLoan = ()=>{
+   dispatch(getLoan(loan))
+   setLoan("")
+  }
   useEffect(()=>{
 
    setTimeout(() => {
     if(error.length > 0){
        dispatch(removeError())
     }
-   }, 2000);
+   }, 3000);
   })
 
 
@@ -48,6 +53,13 @@ const Account=()=>{
                 <input type="text" placeholder="Withdraw from your balance" value={withdraw} onChange={(e)=>{setWithdraw(+e.target.value)}}/>
                </div>
                <button onClick={withdrawBalance}>Withdraw</button>
+            </div>
+            <div className="d-flex align-items-center widthdraw">
+               <div>
+               <label>Get Loan</label>
+                <input type="text" placeholder="Get a Loan from bank" value={loan} onChange={(e)=>{setLoan(+e.target.value)}}/>
+               </div>
+               <button onClick={handleLoan}>Get a Loan</button>
             </div>
          </div>
 

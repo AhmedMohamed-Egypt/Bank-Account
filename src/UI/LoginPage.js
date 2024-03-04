@@ -13,6 +13,7 @@ const LoginPage = ()=>{
     </div>*/}
    <div className="loginContainer">
    <Account/>
+   
    </div>
     
     
