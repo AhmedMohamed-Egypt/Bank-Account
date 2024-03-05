@@ -4,6 +4,7 @@
   padding: 15px 20px;
   border-radius: 5px;
   padding-bottom: 50px;
+  position: relative;
   .balance {
     display: flex;
     justify-content: flex-end;
@@ -67,4 +68,12 @@
     }
   }
 
+}
+.viewTransacationsBtn{
+  background-color: #3262be !important;
+  margin: 0 !important;
+  position: absolute;
+  top: 5px;
+  left: 5px;
+ 
 }

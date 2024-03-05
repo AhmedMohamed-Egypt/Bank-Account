@@ -1,16 +1,16 @@
 const currentTime = () => {
   let currentTime = new Date();
 
-  let currentUTCTime = currentTime;
+ 
   return new Intl.DateTimeFormat("en-us", {
     dateStyle: "full",
     timeStyle: "long",
-  }).format(currentUTCTime);
+  }).format(currentTime);
 };
 setInterval(currentTime, 1000);
-
+const selectorTime = "AM" || "PM"
 function formatDate() {
-  return currentTime().slice(0, currentTime().indexOf("PM") + 2);
+  return currentTime().slice(0, currentTime().indexOf(selectorTime) + 2);
 }
 
 const initialState = {
@@ -25,9 +25,9 @@ const initialState = {
 export default function accountReducer(state = initialState, action) {
   switch (action.type) {
     case "deposit": {
-      const transactionsDeposit = `you deposit to your balance ${
+      const transactionsDeposit = {transacation:`you deposit to your balance ${
         action.payload
-      } ${state.currency} @ ${formatDate()}`;
+      } ${state.currency} @ ${formatDate()}`,classStatus:"deposit"};
       return {
         ...state,
         balance: +state.balance + action.payload,
@@ -38,9 +38,9 @@ export default function accountReducer(state = initialState, action) {
       };
     }
     case "withdraw": {
-      const transactionsWithdraw = `you withdraw from your balance ${
+      const transactionsWithdraw = {transacation:`you withdraw from your balance ${
         action.payload
-      } ${state.currency} @ ${formatDate()}`;
+      } ${state.currency} @ ${formatDate()}`,classStatus:"withdraw"};
       if (state.balance < action.payload) {
         return {
           ...state,
@@ -54,14 +54,14 @@ export default function accountReducer(state = initialState, action) {
           error: "",
           transactionsHistory: [
             ...state.transactionsHistory,
-            transactionsWithdraw.trim(),
+            transactionsWithdraw,
           ],
         };
       }
     }
 
     case "getLoan": {
-      const transacationLoan = `you credited from bank balance ${action.payload} ${state.currency} @ ${formatDate()}`
+      const transacationLoan = {transacation:`you credited from bank balance ${action.payload} ${state.currency} @ ${formatDate()}`,classStatus:"loan"}
       
       if (action.payload > state.loanBank) {
         return { ...state, balance: state.balance };
