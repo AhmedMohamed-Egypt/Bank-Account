@@ -30,7 +30,8 @@ export default function accountReducer(state = initialState, action) {
         return `you deposit to your balance ${txt} ${formatDate()}`
       }
       const transactionsDeposit = {
-        transacation:writeStatus(`${action.payload.amount} ${action.payload.currency}`),
+        transacation:writeStatus(`${action.payload.amount} ${action.payload.currency} 
+        ${action.payload.currency !== 'USD' ? ' that equivalent to ' + action.payload.convertedAmount + ' USD ' : ''}`),
         classStatus: "deposit",
       };
       const actualAmount = action.payload.currency==="USD"?action.payload.amount : action.payload.convertedAmount
