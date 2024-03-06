@@ -56,7 +56,7 @@ const Account=()=>{
             </Modal>
          </>}
       <ErrorBank errorTxt = {error}/>
-         <p className="balance">Balance {balance} USD </p>
+         <p className="balance">Balance {Math.ceil(balance)} USD </p>
          <div>
             <div className="d-flex align-items-center ">
                <div>
