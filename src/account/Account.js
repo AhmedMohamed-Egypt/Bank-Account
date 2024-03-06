@@ -12,18 +12,22 @@ const Account=()=>{
     const [withdraw,setWithdraw] = useState("")
     const [loan,setLoan] = useState("")
     const [showModal,setShowModal] = useState(false)
+    const [currency,setCurrency] = useState("USD")
     const {balance,error,transactionsHistory} = useSelector((store)=>store.account)
     const transactionsStatus = transactionsHistory.length>0?true:false
    const dispatch = useDispatch()
   const depositBalance = ()=>{
-    dispatch(handleDeposit(deposit))
+   if(!deposit) return;
+    dispatch(handleDeposit(deposit,currency))
     setDeposit('')
   }
   const withdrawBalance = ()=>{
+     if(!withdraw) return;
     dispatch(handleWidthdraw(withdraw))
     setWithdraw('')
   }
   const handleLoan = ()=>{
+   if(!loan) return;
    dispatch(getLoan(loan))
    setLoan("")
   }
@@ -58,6 +62,11 @@ const Account=()=>{
                <div>
                <label>Deposit</label>
                 <input type="text" placeholder="Deposit to your balance" value={deposit} onChange={(e)=>setDeposit(+e.target.value)}/>
+                <select onChange={(e)=>setCurrency(e.target.value)} value={currency}>
+                  <option value="USD">USD</option>
+                  <option value="GBP">GBP</option>
+                  <option value="EUR">EUR</option>
+                </select>
                </div>
                <button onClick={depositBalance}>Deposit</button>
             </div>

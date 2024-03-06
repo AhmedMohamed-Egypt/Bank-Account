@@ -77,3 +77,16 @@
   left: 5px;
  
 }
+select{
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  background-color: #fff;
+  margin-left: 15px;
+  border-radius: 5px;
+  padding-right: 15px;
+  cursor: pointer;
+  option{
+    cursor: pointer;
+  }
+}

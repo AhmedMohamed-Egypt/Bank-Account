@@ -1,14 +1,15 @@
+import { act } from "react-dom/test-utils";
+
 const currentTime = () => {
   let currentTime = new Date();
 
- 
   return new Intl.DateTimeFormat("en-us", {
     dateStyle: "full",
     timeStyle: "long",
   }).format(currentTime);
 };
 setInterval(currentTime, 1000);
-const selectorTime = "AM" || "PM"
+const selectorTime = "AM" || "PM";
 function formatDate() {
   return currentTime().slice(0, currentTime().indexOf(selectorTime) + 2);
 }
@@ -25,22 +26,33 @@ const initialState = {
 export default function accountReducer(state = initialState, action) {
   switch (action.type) {
     case "deposit": {
-      const transactionsDeposit = {transacation:`you deposit to your balance ${
-        action.payload
-      } ${state.currency} @ ${formatDate()}`,classStatus:"deposit"};
+      const writeStatus = (txt)=>{
+        return `you deposit to your balance ${txt} ${formatDate()}`
+      }
+      const transactionsDeposit = {
+        transacation:writeStatus(`${action.payload.amount} ${action.payload.currency}`),
+        classStatus: "deposit",
+      };
+      const actualAmount = action.payload.currency==="USD"?action.payload.amount : action.payload.convertedAmount
       return {
         ...state,
-        balance: +state.balance + action.payload,
+        balance: +state.balance + actualAmount,
         transactionsHistory: [
           ...state.transactionsHistory,
           transactionsDeposit,
         ],
       };
+      
     }
+   
+
     case "withdraw": {
-      const transactionsWithdraw = {transacation:`you withdraw from your balance ${
-        action.payload
-      } ${state.currency} @ ${formatDate()}`,classStatus:"withdraw"};
+      const transactionsWithdraw = {
+        transacation: `you withdraw from your balance ${action.payload} ${
+          state.currency
+        } @ ${formatDate()}`,
+        classStatus: "withdraw",
+      };
       if (state.balance < action.payload) {
         return {
           ...state,
@@ -61,8 +73,13 @@ export default function accountReducer(state = initialState, action) {
     }
 
     case "getLoan": {
-      const transacationLoan = {transacation:`you credited from bank balance ${action.payload} ${state.currency} @ ${formatDate()}`,classStatus:"loan"}
-      
+      const transacationLoan = {
+        transacation: `you credited from bank balance ${action.payload} ${
+          state.currency
+        } @ ${formatDate()}`,
+        classStatus: "loan",
+      };
+
       if (action.payload > state.loanBank) {
         return { ...state, balance: state.balance };
       } else {
@@ -71,7 +88,7 @@ export default function accountReducer(state = initialState, action) {
           balance: +state.balance + action.payload,
           loan: +state.loan + action.payload,
           loanBank: state.loanBank - action.payload,
-          transactionsHistory:[...state.transactionsHistory,transacationLoan]
+          transactionsHistory: [...state.transactionsHistory, transacationLoan],
         };
       }
     }
@@ -84,8 +101,22 @@ export default function accountReducer(state = initialState, action) {
   }
 }
 
-export function handleDeposit(amount) {
-  return { type: "deposit", payload: amount };
+export function handleDeposit(amount, currency) {
+  
+  if (currency === "USD") {
+    return { type: "deposit", payload: {amount,currency} };
+  }
+  
+  return async (dispatch)=> {
+    const data = await fetch(
+      `https://api.frankfurter.app/latest?amount=${amount}&from=${currency}&to=USD`
+    );
+    const res = await data.json();
+   const  convertedAmount = await res.rates.USD;
+    dispatch({type:'deposit',payload:{amount,currency,convertedAmount}})
+   
+  };
+ 
 }
 
 export function handleWidthdraw(amount) {
